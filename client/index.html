@@ -1,0 +1,54 @@
+<html><head><style>html, body { 
+  margin: 0px;
+  font-family: sans;
+}
+#content {
+  background: #edf;
+  height: 100%;
+  padding: 20px;l]=-
+}
+.prompts {
+  display: flex;
+  flex-grow: 100%;
+  // background: #bcd;
+  padding: 10px;
+  // border: 1px solid #9ab;
+}
+.prompts > * {
+  padding: 10 20;
+  margin: 10;
+  background: #dde;
+  border: 1px solid #998;
+  width: 100%;
+  box-shadow: 8px 8px 4px #2224;
+}
+</style><script>console.log('header js');</script><body><div id="content"><div class="prompts"><div id="smart"></div><div id="dumb"></div></div></div><script>const $ = document.querySelector.bind(document);
+const $$ = document.querySelectorAll.bind(document);
+const o = Object.assign.bind(Object);
+const _HOST = 'http://localhost:8080/'
+const get = (file) => fetch(_HOST + file).then(file => file.text());
+const div = (className, innerText, parentName) => {
+  const $div = document.createElement('div');
+  const $parent = $(parentName);
+  className = className.replace(/^\./,'');
+  o($div, { className, innerText });
+  console.log('??', $parent);
+  $parent && $parent.appendChild($div);
+    
+  return $div;
+}
+
+(async _ => {
+  const prompts = {
+    mbp: await get('mbp.txt'),
+    flat: await get('flat.txt'),
+  };
+
+  div('.prompt', prompts.mbp, '#smart');
+  div ('.prompt', prompts.flat, '#dumb')
+  
+  
+  console.log('body js');
+
+
+})();</script></body></head></html>
